@@ -1,0 +1,84 @@
+<!-- inicio.component.html -->
+<section class="p-4">
+  <form class="flex space-x-2">
+    <input type="text" placeholder="Filter by city" class="border p-2 rounded">
+    <button class="primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button">Search</button>
+    <button class="secondary bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="button" (click)="openModal()">Insert</button>
+    <button class="secondary bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" type="button" [routerLink]="['/crud']">CRUD</button>
+  </form>
+</section>
+<section class="results p-4">
+  <app-localizacion-casa *ngFor="let oc of Lista" [ocasa]="oc"></app-localizacion-casa>
+</section>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Registrar Nueva Casa</h2>
+      <button class="text-gray-400 hover:text-gray-600" (click)="closeModal()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <form [formGroup]="casaForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" id="nombre" formControlName="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingrese el nombre" required>
+        </div>
+        <div>
+          <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
+          <input type="text" id="ciudad" formControlName="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingrese la ciudad" required>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
+          <input type="text" id="provincia" formControlName="provincia" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingrese la provincia" required>
+        </div>
+        <div>
+          <label for="unidades" class="block text-sm font-medium text-gray-700">Unidades</label>
+          <input type="number" id="unidades" formControlName="unidades" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingrese el número de unidades" required>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="fotos">Fotos</label>
+        <div formArrayName="foto">
+          <div *ngFor="let foto of fotos.controls; let i = index">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2" 
+                   type="text" 
+                   [formControlName]="i" 
+                   placeholder="Link de la imagen">
+            <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" (click)="removeFoto(i)">
+              Eliminar
+            </button>
+          </div>
+          <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" (click)="addFoto()">Agregar otra foto</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">WiFi</label>
+          <div class="flex items-center mt-1">
+            <input type="checkbox" id="wifi" formControlName="wifi" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+            <label for="wifi" class="ml-2 block text-sm text-gray-900">Disponible</label>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Lavandería</label>
+          <div class="flex items-center mt-1">
+            <input type="checkbox" id="lavanderia" formControlName="lavanderia" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+            <label for="lavanderia" class="ml-2 block text-sm text-gray-900">Disponible</label>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Registrar Casa
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

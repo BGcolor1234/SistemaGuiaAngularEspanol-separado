@@ -1,0 +1,25 @@
+/* crud.component.css */
+.table-auto {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-auto th,
+  .table-auto td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .table-auto th {
+    background-color: #f8fafc;
+    text-align: left;
+  }
+  
+  .table-auto tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  

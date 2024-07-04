@@ -1,0 +1,70 @@
+<div *ngIf="isOpen" id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Registrar Nueva Casa</h2>
+      <button class="text-gray-400 hover:text-gray-600" (click)="closeModal()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <form [formGroup]="casaForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" id="nombre" formControlName="nombre" class="mt-1 bg-gray-50 border border-purple-500 text-gray-900 rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-3" placeholder="Ingrese el nombre" required>
+        </div>
+        <div>
+          <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
+          <input type="text" id="ciudad" formControlName="ciudad" class="mt-1 bg-gray-50 border border-purple-500 text-gray-900 rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-3" placeholder="Ingrese la ciudad" required>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
+          <input type="text" id="provincia" formControlName="provincia" class="mt-1 bg-gray-50 border border-purple-500 text-gray-900 rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-3" placeholder="Ingrese la provincia" required>
+        </div>
+        <div>
+          <label for="unidades" class="block text-sm font-medium text-gray-700">Unidades</label>
+          <input type="number" id="unidades" formControlName="unidades" class="mt-1 bg-gray-50 border border-purple-500 text-gray-900 rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-3" placeholder="Ingrese el número de unidades" required>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700" for="fotos">Fotos</label>
+        <div formArrayName="foto">
+          <div *ngFor="let foto of fotos.controls; let i = index" class="flex items-center mb-2">
+            <input class="mt-1 shadow appearance-none border border-purple-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-purple-500 focus:border-purple-500" 
+                   type="text" 
+                   [formControlName]="i" 
+                   placeholder="Link de la imagen">
+            <button type="button" class="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded" (click)="removeFoto(i)">
+              Eliminar
+            </button>
+          </div>
+          <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2" (click)="addFoto()">Agregar otra foto</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">WiFi</label>
+          <div class="flex items-center mt-1">
+            <input type="checkbox" id="wifi" formControlName="wifi" class="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+            <label for="wifi" class="ml-2 block text-sm text-gray-900">Disponible</label>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Lavandería</label>
+          <div class="flex items-center mt-1">
+            <input type="checkbox" id="lavanderia" formControlName="lavanderia" class="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+            <label for="lavanderia" class="ml-2 block text-sm text-gray-900">Disponible</label>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+          Registrar Casa
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

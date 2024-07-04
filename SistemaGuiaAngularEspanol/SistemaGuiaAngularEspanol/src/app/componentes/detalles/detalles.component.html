@@ -1,0 +1,29 @@
+<!-- detalles.component.html -->
+<article class="flex flex-wrap">
+  <div class="w-full md:w-1/2">
+    <section class="listing-description mt-4">
+      <h2 class="listing-heading">{{clocalizacion?.nombre}}</h2>
+      <p class="listing-location">{{clocalizacion?.ciudad}}, {{clocalizacion?.provincia}}</p>
+    </section>
+    <section class="listing-features mt-4">
+      <h2 class="section-heading">Informacion de la casa</h2>
+      <ul>
+        <li>Cuartos disponibles: {{clocalizacion?.unidades}}</li>
+        <li>Tiene conexion wifi: {{clocalizacion?.wifi}}</li>
+        <li>Posee lavanderia: {{clocalizacion?.lavanderia}}</li>
+      </ul>
+    </section>
+  </div>
+  <div class="w-full md:w-1/2">
+    <div class="carousel relative">
+      <div class="carousel-inner relative overflow-hidden w-full h-full">
+        <div *ngFor="let foto of clocalizacion?.foto; let i = index" [class.hidden]="i !== currentSlideIndex" class="carousel-item absolute w-full h-full">
+          <img class="listing-photo w-full h-full object-cover" [src]="foto" alt="Exterior photo of {{clocalizacion?.nombre}}">
+        </div>
+      </div>
+      <!-- Prev/Next buttons -->
+      <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2" (click)="prevSlide()">&#10094;</button>
+      <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2" (click)="nextSlide()">&#10095;</button>
+    </div>
+  </div>
+</article>

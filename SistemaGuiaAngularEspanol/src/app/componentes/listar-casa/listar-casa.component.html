@@ -1,0 +1,43 @@
+<div>
+    <section class="p-6 bg-gray-100">
+      <div class="flex justify-between items-center mb-6">
+        <button class="secondary bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded" type="button" [routerLink]="['']">Inicio</button>
+        <button class="secondary bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="button" (click)="openInsertarModal()">Insert</button>
+        <h2 class="text-3xl font-bold text-gray-800">Listado de Casas</h2>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-5xl mx-auto">
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th class="py-4 px-6 bg-gray-50 border-b text-left text-sm uppercase font-medium text-gray-600">Nombre</th>
+              <th class="py-4 px-6 bg-gray-50 border-b text-left text-sm uppercase font-medium text-gray-600">Ciudad</th>
+              <th class="py-4 px-6 bg-gray-50 border-b text-left text-sm uppercase font-medium text-gray-600">Provincia</th>
+              <th class="py-4 px-6 bg-gray-50 border-b text-left text-sm uppercase font-medium text-gray-600">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let casa of casas" class="hover:bg-gray-100">
+              <td class="py-4 px-6 border-b">{{ casa.nombre }}</td>
+              <td class="py-4 px-6 border-b">{{ casa.ciudad }}</td>
+              <td class="py-4 px-6 border-b">{{ casa.provincia }}</td>
+              <td class="py-4 px-6 border-b">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="openModificarModal(casa)">Editar</button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="eliminarCasa(casa.id)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <!-- Modal Insertar Casa -->
+    <div *ngIf="isInsertarModalOpen">
+      <app-insertar-casa (close)="closeInsertarModal()"></app-insertar-casa>
+    </div>
+  
+    <!-- Modal Modificar Casa -->
+    <div *ngIf="isModificarModalOpen">
+      <app-modificar-casa [selectedCasa]="selectedCasa" (close)="closeModificarModal()"></app-modificar-casa>
+    </div>
+  </div>
+  
